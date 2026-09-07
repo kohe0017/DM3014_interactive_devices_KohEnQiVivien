@@ -1,0 +1,119 @@
+<!-- DM3014 Interactive Devices, Ashley Hi 2026
+  -- Week 3 - Net Art
+  -- Assignment Example
+-->
+
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Sculpture As 100 Hyperlinks</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+</head>
+<body>
+<script>
+  // ------------------------------------------------------------------
+  // EDIT ME
+  // One object per hyperlink on the page:
+  //   x, y   -> where it sits on the page, in pixel coordinates
+  //   label  -> the clickable text
+  //   url    -> where it links to
+  //   w, h   -> (optional) popup window size for this link only.
+  //             leave them out and it uses defaultWidth/defaultHeight below
+  //
+  // To add a link: copy any line, change the values, add a comma.
+  // To remove a link: delete its line.
+ 
+  let links = [
+  { x: 100, y: 100, label: "God", url: "https://studiotomassaraceno.org/on-air/", w: 500, h: 400 },
+  { x: 150, y: 100, label: "Coding is so hard", url: "https://www.youtube.com/watch?v=D2HF-1xjpP8" },
+  { x: 300, y: 100, label: "I borrowed a book", url: "https://www.ted.com/talks/reuben_margolin_sculpting_waves_in_wood_and_time?language=en"},
+  { x: 438, y: 100, label: "to learn Javascript", url: "https://www.reubenmargolin.com/waves/cambrian-wave/"  },
+  { x: 600, y: 100, label: "I looked like a poser", url: "http://www.hypersonic.cc/#!/projects/diffusion-choir"},
+  { x: 100, y: 120, label: "It", url: "http://www.hypersonic.cc/#!/projects/seed-and-signal" },
+  { x: 700, y: 120, label: "Was", url: "https://artcom.de/en/project/mobility/" },
+  { x: 100, y: 140, label: "Very", url: "http://www.kyouei-ltd.co.jp/products.html" },
+  { x: 700, y: 140, label: "Bad", url: "https://www.telegraph.co.uk/content/dam/news/2017/10/02/TELEMMGLPICT000140212002_trans_NvBQzQNjv4BqYxTa1Aj3o1TNkSgHzXgZLDLo52wbd2elVw7BGKU2XiI.jpeg?imwidth=450" },
+  { x: 100, y: 160, label: "I", url: "https://thumbs.gfycat.com/AmpleLeftDunnart-size_restricted.gif" },
+  { x: 700, y: 160, label: "Feel", url: "https://www.earthguardpest.com/wp-content/uploads/2016/08/pigeon-flapping.jpg" },
+  { x: 100, y: 180, label: "Like", url: "https://66.media.tumblr.com/68085c47db89c97acf7fbd6b7f18384e/tumblr_nhqrrdpDXR1rom8v2o1_500.gif" },
+  { x: 700, y: 180, label: "Code", url: "https://upload.wikimedia.org/wikipedia/commons/3/33/Domestic_Pigeon_Flock.jpg" },
+  { x: 100, y: 200, label: "Is", url: "https://i.pinimg.com/originals/4b/2c/e5/4b2ce56bb8fa9772869c7c133a32648f.gif" },
+  { x: 700, y: 200, label: "An", url: "https://c1.staticflickr.com/6/5167/5275286181_785fd79336_b.jpg" },
+  { x: 100, y: 220, label: "In", url: "https://i.gifer.com/86.gif" },
+  { x: 700, y: 220, label: "Sane", url: "https://www.toolsandtimber.co.uk/ash-dowels-config-1151" },
+  { x: 100, y: 240, label: "Way", url: "http://www.makitauk.com/products/cordless-tools/drill-drivers/all-cordless-drill-drivers/df030dwe-10-8v-14-lxt-drill-driver.html" },
+  { x: 700, y: 240, label: "To", url: "https://www.wickes.co.uk/Wickes-Light-Hardwood-Dowel-Moulding---6mm-x-6mm-x-2-4m/p/121224" },
+  { x: 100, y: 260, label: "Make", url: "https://images-na.ssl-images-amazon.com/images/I/41B%2BnxEUIWL._SL500_AC_SS350_.jpg" },
+  { x: 700, y: 260, label: "Art", url: "https://www.tts-group.co.uk/wooden-dowel-packs/1000318.html" },
+  { x: 100, y: 280, label: "I", url: "https://www.screwfix.com/c/tools/drill-bits/cat12140001" },
+  { x: 700, y: 280, label: "Did", url: "http://www.griggio.com/en/products/band-saws/sna-snac/" },
+  { x: 100, y: 300, label: "Ask", url: "http://www.makitauk.com/products/woodworking/sanders/palm-finishing-sanders/bo4555-palm-sander.htmltr" },
+  { x: 700, y: 300, label: "A", url: "http://www.makitauk.com/products/woodworking/sanders/palm-finishing-sanders/bo4555-palm-sander.html" },
+  { x: 100, y: 320, label: "CCDS", url: "https://www.screwfix.com/c/tools/sanding-rolls/cat6970001" },
+  { x: 700, y: 320, label: "Guy", url: "https://www.amazon.co.uk/Sandpaper-Waterproof-Highest-Quality-STARCKE/dp/B009QZEQKK" },
+  { x: 100, y: 340, label: "If", url: "https://hollandbikeshop.com/img/prod/unior-blow-gun-pvc-260mm-3838909177670-0-l.jpg" },
+  { x: 700, y: 340, label: "He", url: "https://www.homebase.co.uk/hardwood-plywood-1220-x-607-x-3-6mm_p407059" },
+  { x: 100, y: 360, label: "Felt", url: "http://www.griggio.com/en/products/band-saws/sna-snac/" },
+  { x: 700, y: 360, label: "There", url: "http://www.griggio.com/en/products/band-saws/sna-snac/" },
+  { x: 100, y: 380, label: "Was", url: "http://www.griggio.com/en/products/band-saws/sna-snac/" },
+  { x: 700, y: 380, label: "a", url: "https://cdn.axminster.co.uk/media/catalog/product/cache/1/image/920x/9df78eab33525d08d6e5fb8d27136e95/1/0/101701_xl.jpg" },
+  { x: 100, y: 400, label: "point", url: "https://hollandbikeshop.com/img/prod/unior-blow-gun-pvc-260mm-3838909177670-0-l.jpg" },
+  { x: 700, y: 400, label: "to", url: "https://www.arduino.cc" },
+  { x: 100, y: 420, label: "learn", url: "http://forum.arduino.cc/index.php?topic=21912.0" },
+  { x: 700, y: 420, label: "Code", url: "http://animatronicsworkshop.com/wp-content/uploads/2014/05/Arduino2MicroServo_bb.png" },
+  { x: 100, y: 440, label: "He", url: "http://fritzing.org/download/" },
+  { x: 700, y: 440, label: "Said", url: "https://www.amazon.co.uk/dp/B072J59PKZ/ref=sspa_dk_detail_1?psc=1&pd_rd_i=B072J59PKZ&pd_rd_w=UG2ob&pf_rd_p=8e5be0e3-b258-4b06-8b6e-695b24f935a4&pd_rd_wg=Sf7Qv&pf_rd_r=YMYKV1BMY996W0415H7A&pd_rd_r=85cbd6b5-12e5-11e9-aba2-fd0e110688e9&smid=A1QYNW8GSP8HVC" },
+  { x: 100, y: 460, label: "No", url: "https://www.amazon.co.uk/Innovateking-EU-MG996R-Torque-Digital-Helicopter/dp/B07JN7F9VY/ref=pd_sbs_21_13?_encoding=UTF8&pd_rd_i=B07JN7F9VY&pd_rd_r=5b02d19c-12e6-11e9-82c4-490c12df652f&pd_rd_w=M2lYD&pd_rd_wg=PbYSH&pf_rd_p=18edf98b-139a-41ee-bb40-d725dd59d1d3&pf_rd_r=SD509MZT1WZPBMQS1N8T&psc=1&refRID=SD509MZT1WZPBMQS1N8T" },
+  { x: 700, y: 460, label: "lol", url: "https://www.amazon.co.uk/Stemedu-Servo-Analog-Accessories-Arduino/dp/B07H7YTC4H/ref=sr_1_8?ie=UTF8&qid=1546911223&sr=8-8&keywords=servo+tower+pro" },
+  { x: 100, y: 480, label: "He said to just use", url: "https://hobbyking.com/en_us/hxt900-micro-servo-1-6kg-0-12sec-9g.html?countrycode=GB&gclid=EAIaIQobChMIzOy-96Xt3wIVDp3tCh2pYQe4EAQYASABEgI0O_D_BwE&gclsrc=aw.ds&___store=en_us" },
+  { x: 270, y: 480, label: "Ai", url: "https://shop.pimoroni.com/products/micro-360-degree-continuous-rotation-servo-fs90r?variant=1560655069194&gclid=EAIaIQobChMIzOy-96Xt3wIVDp3tCh2pYQe4EAQYBCABEgIdY_D_BwE" },
+  { x: 300, y: 480, label: "But", url: "https://www.alibaba.com/product-detail/Keyestudio-9G-23-12-2-29mm_60778767310.html?spm=a2700.7724857.normalList.29.6d0f1332zqz5uq" },
+  { x: 330, y: 480, label: "That does not work", url: "https://www.alibaba.com/countrysearch/CN/rc-servo.html" },
+  { x: 500, y: 480, label: "Every time", url: "http://forums.trossenrobotics.com/showthread.php?6456-Servo-not-moving-as-desired-HELP!-180\u00b0-servo-seems-stuck-at-120\u00b0" },
+  { x: 650, y: 480, label: "Sometimes", url: "https://www.sheetplastics.co.uk/products/acrylic-perspexequivalent-sheet" },
+  { x: 370, y: 500, label: "Ai has", url: "https://www.theplasticshop.co.uk/coloured-perspex-sheet.html" },
+  { x: 370, y: 520, label: "No idea", url: "https://www.acrylic-online.co.uk/product_desc.php?id=1300&color=Red" },
+  { x: 370, y: 540, label: "How", url: "https://www.cutplasticsheeting.co.uk/clear-acrylic-sheeting/" },
+  { x: 370, y: 560, label: "to code", url: "http://www.griggio.com/en/products/band-saws/sna-snac/" },
+  { x: 370, y: 580, label: "and", url: "https://www.cutmyplastic.co.uk/blog/5-ways-cut-acrylic-perspex/" },
+  { x: 370, y: 600, label: "Neither", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  { x: 370, y: 620, label: "do I", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  { x: 270, y: 640, label: "I think coding", url: "https://shop.pimoroni.com/products/micro-360-degree-continuous-rotation-servo-fs90r?variant=1560655069194&gclid=EAIaIQobChMIzOy-96Xt3wIVDp3tCh2pYQe4EAQYBCABEgIdY_D_BwE" },
+  { x: 380, y: 640, label: "with Ai", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+    { x: 450, y: 640, label: "is a lot like", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+     { x: 500, y: 660, label: "drawing", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  { x: 550, y: 680, label: "a human", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  { x: 600, y: 700, label: "without", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  { x: 600, y: 720, label: "knowing how a human looks like", url: "https://www.epiloglaser.com/laser-machines/fusion-laser-series.htm" },
+  ];
+  // ------------------------------------------------------------------
+  
+  // popup size used for any link that doesn't set its own w/h
+  let defaultWidth = 1000;
+  let defaultHeight = 1000;
+
+  function setup() {
+    noCanvas(); // this page only places links, so we don't need a canvas
+    for (let i = 0; i < links.length; i++) {
+      let link = links[i];
+      let a = createA('javascript:void(0)', link.label);
+      a.position(link.x, link.y);
+      a.mousePressed(() => openPopup(link));
+    }
+  }
+
+  // opens a link in its own small popup window
+  function openPopup(link) {
+    let w = link.w || defaultWidth;
+    let h = link.h || defaultHeight;
+    window.open(
+      link.url,
+      '_blank',
+      `width=${w},height=${h},left=100,top=50,resizable=yes,scrollbars=yes`
+    );
+  }
+
+</script>
+</body>
+</html>
